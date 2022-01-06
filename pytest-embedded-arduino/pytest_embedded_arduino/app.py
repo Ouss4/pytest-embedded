@@ -15,7 +15,7 @@ class ArduinoApp(App):
         sketch (str): Sketch name.
         fqbn (str): Fully Qualified Board Name.
         target (str) : ESPxx chip.
-        flash_files (List[Tuple[int, str, str]]): List of (offset, file path, encrypted) of files need to be flashed in.
+        flash_files (List[Tuple[int, str, bool]]): List of (offset, file path, encrypted) of files need to be flashed in.
         flash_settings (dict[str, Any]): dict of flash settings
         binary_offsets (dict[str, List[int, int, int]]): dict of binaries' offset.
     """
