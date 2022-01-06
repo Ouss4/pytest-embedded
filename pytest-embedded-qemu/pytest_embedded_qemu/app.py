@@ -3,7 +3,7 @@ import os
 from typing import Optional
 
 from pytest_embedded.log import DuplicateStdout, PexpectProcess, live_print_call
-from pytest_embedded_idf.app import IdfApp
+from pytest_embedded_arduino.app import ArduinoApp
 
 from . import DEFAULT_IMAGE_FN
 
@@ -13,7 +13,7 @@ class IdfFlashImageMaker:
     Create a single image for QEMU based on the `IdfApp`'s partition table and all the flash files.
     """
 
-    def __init__(self, app: IdfApp, image_path: str):
+    def __init__(self, app: ArduinoApp, image_path: str):
         """
         Args:
             app: `IdfApp` instance
@@ -63,7 +63,7 @@ class IdfFlashImageMaker:
         pass
 
 
-class QemuApp(IdfApp):
+class QemuApp(ArduinoApp):
     """
     QEMU App class
 

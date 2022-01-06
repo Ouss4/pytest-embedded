@@ -663,17 +663,9 @@ def _fixture_classes_and_options(
         if fixture == 'app':
             kwargs['app'] = {'app_path': app_path, 'build_dir': build_dir}
             if 'idf' in _services:
-                if 'qemu' in _services:
-                    from pytest_embedded_qemu.app import DEFAULT_IMAGE_FN, QemuApp
-
-                    classes[fixture] = QemuApp
-                    kwargs[fixture].update(
-                        {
-                            'pexpect_proc': pexpect_proc,
-                            'part_tool': part_tool,
-                            'qemu_image_path': (qemu_image_path or os.path.join(app_path, DEFAULT_IMAGE_FN)),
-                        }
-                    )
+                if 'idf' == 'pdf':
+                    print("OK")
+                    
                 else:
                     from pytest_embedded_idf.app import IdfApp
 
@@ -685,15 +677,28 @@ def _fixture_classes_and_options(
                         }
                     )
             elif 'arduino' in _services:
-                from pytest_embedded_arduino.app import ArduinoApp
+                if 'qemu' in _services:
+                    from pytest_embedded_qemu.app import DEFAULT_IMAGE_FN, QemuApp
 
-                classes[fixture] = ArduinoApp
-                kwargs[fixture].update(
-                    {
-                        'pexpect_proc': pexpect_proc,
-                        'app_path': app_path,
-                    }
-                )
+                    classes[fixture] = QemuApp
+                    kwargs[fixture].update(
+                        {
+                            'pexpect_proc': pexpect_proc,
+                            'part_tool': part_tool,
+                            'qemu_image_path': (qemu_image_path or os.path.join(app_path, DEFAULT_IMAGE_FN)),
+                        }
+                    )
+
+                else:
+                    from pytest_embedded_arduino.app import ArduinoApp
+
+                    classes[fixture] = ArduinoApp
+                    kwargs[fixture].update(
+                        {
+                            'pexpect_proc': pexpect_proc,
+                            'app_path': app_path,
+                        }
+                    )
             else:
                 from .app import App
 
